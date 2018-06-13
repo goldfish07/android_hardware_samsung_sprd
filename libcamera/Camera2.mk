@@ -1,17 +1,6 @@
 LOCAL_PATH:= $(call my-dir)
 include $(CLEAR_VARS)
 
-sc8830like:=0
-
-ifeq ($(strip $(TARGET_BOARD_PLATFORM)),sc8830)
-sc8830like=1
-endif
-
-ifeq ($(strip $(TARGET_BOARD_PLATFORM)),scx15)
-sc8830like=1
-endif
-
-ifeq ($(strip $(sc8830like)),1)
 LOCAL_C_INCLUDES := \
 	$(LOCAL_PATH)/vsp/sc8830/inc	\
 	$(LOCAL_PATH)/vsp/sc8830/src \
@@ -27,7 +16,7 @@ LOCAL_C_INCLUDES := \
         external/sqlite/dist \
 	system/media/camera/include \
 	$(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/source/include/video \
-	hardware/sprd/gralloc/$(TARGET_BOARD_PLATFORM) \
+	hardware/samsung/sprd/gralloc \
 
 LOCAL_ADDITIONAL_DEPENDENCIES += \
 	$(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
@@ -111,7 +100,7 @@ LOCAL_SRC_FILES+= \
 	sc8830/src/SprdBaseThread.cpp \
 	sc8830/src/SprdCamera2.c \
 	sc8830/src/SprdCameraHWInterface2.cpp
-endif
+
 
 LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
 LOCAL_CFLAGS := -fno-strict-aliasing -D_VSP_ -DJPEG_ENC -D_VSP_LINUX_ -DCHIP_ENDIAN_LITTLE -DCONFIG_CAMERA_2M  -DANDROID_4100
@@ -119,119 +108,22 @@ LOCAL_CFLAGS := -fno-strict-aliasing -D_VSP_ -DJPEG_ENC -D_VSP_LINUX_ -DCHIP_END
 ifeq ($(strip $(TARGET_BOARD_PLATFORM)),scx15)
 LOCAL_CFLAGS += -DCONFIG_CAMERA_SMALL_PREVSIZE
 endif
-
-ifeq ($(strip $(TARGET_BOARD_CAMERA_FLASH_CTRL)),true)
 LOCAL_CFLAGS += -DCONFIG_CAMERA_FLASH_CTRL
-endif
 
-ifeq ($(strip $(CAMERA_SUPPORT_SIZE)),13M)
-LOCAL_CFLAGS += -DCONFIG_CAMERA_SUPPORT_13M
-endif
-
-ifeq ($(strip $(CAMERA_SUPPORT_SIZE)),8M)
-LOCAL_CFLAGS += -DCONFIG_CAMERA_SUPPORT_8M
-endif
-
-ifeq ($(strip $(CAMERA_SUPPORT_SIZE)),5M)
 LOCAL_CFLAGS += -DCONFIG_CAMERA_SUPPORT_5M
-endif
 
-ifeq ($(strip $(CAMERA_SUPPORT_SIZE)),3M)
-LOCAL_CFLAGS += -DCONFIG_CAMERA_SUPPORT_3M
-endif
-
-ifeq ($(strip $(CAMERA_SUPPORT_SIZE)),2M)
-LOCAL_CFLAGS += -DCONFIG_CAMERA_SUPPORT_2M
-endif
-
-ifeq ($(strip $(TARGET_BOARD_NO_FRONT_SENSOR)),true)
-LOCAL_CFLAGS += -DCONFIG_DCAM_SENSOR_NO_FRONT_SUPPORT
-endif
-
-ifeq ($(strip $(TARGET_BOARD_PLATFORM)),sc8830)
 LOCAL_CFLAGS += -DCONFIG_CAMERA_ISP
-endif
 
-
-ifeq ($(strip $(TARGET_BOARD_CAMERA_CAPTURE_MODE)),true)
-LOCAL_CFLAGS += -DCONFIG_CAMERA_ZSL_CAPTURE
-endif
-
-ifeq ($(strip $(TARGET_BOARD_CAMERA_ANDROID_ZSL_MODE)),true)
-LOCAL_CFLAGS += -DCONFIG_CAMERA_ANDROID_ZSL_CAPTURE
-endif
-
-ifeq ($(strip $(TARGET_BOARD_CAMERA_CAF)),true)
 LOCAL_CFLAGS += -DCONFIG_CAMERA_CAF
-endif
-
-ifeq ($(strip $(TARGET_BOARD_CAMERA_ROTATION_CAPTURE)),true)
 LOCAL_CFLAGS += -DCONFIG_CAMERA_ROTATION_CAPTURE
-endif
-
-ifeq ($(strip $(TARGET_BOARD_FRONT_CAMERA_ROTATION)),true)
 LOCAL_CFLAGS += -DCONFIG_FRONT_CAMERA_ROTATION
-endif
-
-ifeq ($(strip $(TARGET_BOARD_BACK_CAMERA_ROTATION)),true)
 LOCAL_CFLAGS += -DCONFIG_BACK_CAMERA_ROTATION
-endif
-
-ifeq ($(strip $(TARGET_BOARD_CAMERA_ROTATION)),true)
 LOCAL_CFLAGS += -DCONFIG_CAMERA_ROTATION
-endif
-
-ifeq ($(strip $(TARGET_BOARD_CAMERA_ANTI_SHAKE)),true)
-LOCAL_CFLAGS += -DCONFIG_CAMERA_ANTI_SHAKE
-endif
-
-ifeq ($(strip $(TARGET_BOARD_CAMERA_DMA_COPY)),true)
 LOCAL_CFLAGS += -DCONFIG_CAMERA_DMA_COPY
-endif
-
-ifeq ($(strip $(TARGET_BOARD_SP7710_CAMERA)),true)
-LOCAL_CFLAGS += -DCONFIG_CAMERA_SP7710_FEATURE
-endif
-
-ifeq ($(strip $(TARGET_BOARD_BACK_CAMERA_INTERFACE)),mipi)
-LOCAL_CFLAGS += -DCONFIG_BACK_CAMERA_MIPI
-endif
-
-ifeq ($(strip $(TARGET_BOARD_BACK_CAMERA_INTERFACE)),ccir)
 LOCAL_CFLAGS += -DCONFIG_BACK_CAMERA_CCIR
-endif
-
-ifeq ($(strip $(TARGET_BOARD_FRONT_CAMERA_INTERFACE)),mipi)
-LOCAL_CFLAGS += -DCONFIG_FRONT_CAMERA_MIPI
-endif
-ifeq ($(strip $(TARGET_BOARD_FRONT_CAMERA_INTERFACE)),ccir)
 LOCAL_CFLAGS += -DCONFIG_FRONT_CAMERA_CCIR
-endif
-
-ifeq ($(strip $(TARGET_BOARD_CAMERA_SUPPORT_720P)),true)
-LOCAL_CFLAGS += -DCONFIG_CAMERA_SUPPORT_720P
-endif
-
-ifeq ($(strip $(TARGET_BOARD_CAMERA_SUPPORT_CIF)),true)
 LOCAL_CFLAGS += -DCONFIG_CAMERA_SUPPORT_CIF
-endif
-
-ifeq ($(strip $(CAMERA_DISP_ION)),true)
 LOCAL_CFLAGS += -DUSE_ION_MEM
-endif
-
-ifeq ($(strip $(CAMERA_SENSOR_OUTPUT_ONLY)),true)
-LOCAL_CFLAGS += -DCONFIG_SENSOR_OUTPUT_ONLY
-endif
-
-ifeq ($(strip $(TARGET_BOARD_CAMERA_NO_FLASH_DEV)),true)
-LOCAL_CFLAGS += -DCONFIG_CAMERA_FLASH_NOT_SUPPORT
-LOCAL_CFLAGS += -DCONFIG_CAMERA_AUTOFOCUS_NOT_SUPPORT
-endif
-
-ifeq ($(strip $(TARGET_BOARD_CAMERA_X3542)),true)
-LOCAL_CFLAGS += -DCONFIG_CAMERA_X3542
-endif
 
 ifeq ($(strip $(TARGET_BOARD_CAMERA_HAL_VERSION)),HAL2.0)
 LOCAL_MODULE := camera.$(TARGET_BOARD_PLATFORM)
@@ -240,17 +132,16 @@ LOCAL_MODULE := camera2.$(TARGET_BOARD_PLATFORM)
 endif
 LOCAL_MODULE_TAGS := optional
 
-ifeq ($(strip $(sc8830like)),1)
-LOCAL_SHARED_LIBRARIES := libexif libutils libbinder libcamera_client libskia libcutils libsqlite libhardware libmorpho_easy_hdr libcamera_metadata libmemoryheapion
-endif
 
-ifdef CONFIG_CAMERA_ISP
+LOCAL_SHARED_LIBRARIES := libexif libutils libbinder libcamera_client libskia libcutils libsqlite libhardware libmorpho_easy_hdr libcamera_metadata libmemoryheapion
+
+
+
 LOCAL_SHARED_LIBRARIES += libisp
-endif
 
 include $(BUILD_SHARED_LIBRARY)
 
-ifeq ($(strip $(sc8830like)),1)
+
 
 #include $(CLEAR_VARS)
 #LOCAL_PREBUILT_LIBS := sc8830/isp/libisp.so
@@ -262,4 +153,3 @@ ifeq ($(strip $(sc8830like)),1)
 #LOCAL_MODULE_TAGS := optional
 #include $(BUILD_MULTI_PREBUILT)
 
-endif
