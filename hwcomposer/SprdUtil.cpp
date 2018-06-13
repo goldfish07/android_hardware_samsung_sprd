@@ -621,12 +621,12 @@ int SprdUtil::composerLayers(SprdHWLayer *l1, SprdHWLayer *l2, private_handle_t*
                      gsp_cfg_info.layer0_info.des_rect.rect_w,
                      gsp_cfg_info.layer0_info.des_rect.rect_h);
         }
-        else
+        
         {
             ALOGE("GSP process layer1 L%d,video layer use virtual addr!",__LINE__);
         }
 
-    } else {
+    }  {
         ALOGI_IF(mDebugFlag,"GSP find layer1 do not exists. L%d,L1 == NULL ",__LINE__);
     }
 
@@ -754,7 +754,7 @@ int SprdUtil::composerLayers(SprdHWLayer *l1, SprdHWLayer *l2, private_handle_t*
                      gsp_cfg_info.layer1_info.des_pos.pos_pt_y);
 
         }
-        else
+        
         {
             gsp_cfg_info.layer1_info.grey.r_val = 0;
             gsp_cfg_info.layer1_info.grey.g_val = 0;

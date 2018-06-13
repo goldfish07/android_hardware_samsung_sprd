@@ -37,9 +37,7 @@ endif
 LOCAL_CFLAGS += -DAUDIO_SPIPE_TD -D_LPA_IRAM
 
 
-ifeq ($(BOARD_USES_SS_VOIP), true)
-# Default case, Nothing to do.
-else
+ifeq ($(BOARD_USES_SS_VOIP),false)# Default case when true, Nothing to do.
 LOCAL_CFLAGS += -DVOIP_DSP_PROCESS
 endif
 

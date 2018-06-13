@@ -22,7 +22,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := libmemoryheapion
 
 LOCAL_SRC_FILES := \
-	MemoryHeapIon_SPRD.cpp
+	MemoryHeapIon.cpp
 
 LOCAL_ADDITIONAL_DEPENDENCIES += \
 	$(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
